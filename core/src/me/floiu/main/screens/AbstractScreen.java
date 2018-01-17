@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import me.floiu.main.Main;
 
-public abstract class AbstractScreen implements Screen{
+public abstract class AbstractScreen implements Screen {
 
     protected Main game;
 
