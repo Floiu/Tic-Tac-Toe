@@ -2,15 +2,24 @@ package me.floiu.main.screens;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import com.badlogic.gdx.utils.Timer;
 import me.floiu.main.Main;
 
 public class SplashScreen extends AbstractScreen {
 
     private Texture splashImg;
 
-    public SplashScreen(Main game) {
+    public SplashScreen(final Main game) {
         super(game);
         init();
+
+        Timer.schedule(new Timer.Task() {
+
+            @Override
+            public void run() {
+                game.setScreen(new GameplayScreen(game));
+            }
+        }, 2);
     }
 
     private void init() {
