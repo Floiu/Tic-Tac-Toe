@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
-
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import me.floiu.main.AssetsLoader;
 import me.floiu.main.GameController;
 import me.floiu.main.Main;
