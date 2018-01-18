@@ -5,9 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import me.floiu.main.GameController;
 import me.floiu.main.Main;
 
 public class GameplayScreen extends AbstractScreen {
+
+    private GameController gc;
 
     private static int BOARD_SIZE = 9;
     private static int BOARD_BUTTON_SIZE = 100;
@@ -17,6 +20,11 @@ public class GameplayScreen extends AbstractScreen {
     public GameplayScreen(Main game) {
         super(game);
         initBoard();
+        initGameController();
+    }
+
+    private void initGameController() {
+        gc = new GameController(this, spriteBatch);
     }
 
     // Init playing board
