@@ -1,6 +1,8 @@
 package me.floiu.main;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import me.floiu.main.screens.GameplayScreen;
 
 public class GameController {
@@ -19,9 +21,20 @@ public class GameController {
         this.assetsLoader = assetsLoader;
     }
 
-    public void makeMove(int i) {
-        boardStatus[i-1] = whoIsNow;
+    public void makeMove(int i, InputEvent event) {
+        if (boardStatus[i-1] != '#') {
+            event.cancel();
+        } else {
+            boardStatus[i-1] = whoIsNow;
+        }
         changePlayer();
+    }
+
+    public void resetGame() {
+        for (int i=1; i<=boardStatus.length; i++) {
+            boardStatus[i-1] = '#';
+        }
+        whoIsNow = 'x';
     }
 
     private void changePlayer() {
