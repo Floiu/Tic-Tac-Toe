@@ -1,5 +1,6 @@
 package me.floiu.main.screens;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -59,7 +60,9 @@ public class GameplayScreen extends AbstractScreen {
             _tempbutton.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    gc.makeMove(fieldID);
+                    if (button == Input.Buttons.LEFT) {
+                        gc.makeMove(fieldID);
+                    }
                     return super.touchDown(event, x, y, pointer, button);
                 }
             });
