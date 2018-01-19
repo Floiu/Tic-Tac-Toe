@@ -2,14 +2,19 @@ package me.floiu.main.screens;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import me.floiu.main.AssetsLoader;
 import me.floiu.main.GameController;
 import me.floiu.main.Main;
+
+import javax.xml.soap.Text;
 
 public class GameplayScreen extends AbstractScreen {
 
@@ -18,6 +23,9 @@ public class GameplayScreen extends AbstractScreen {
     private Texture oImage;
     private Texture xImage;
     private AssetsLoader assetsLoader;
+
+    private TextButton resetButton;
+    private TextButtonStyle resetButtonStyle;
 
     private static int BOARD_SIZE = 9;
     private static int BOARD_BUTTON_SIZE = 100;
@@ -32,6 +40,7 @@ public class GameplayScreen extends AbstractScreen {
         initAssets();
         initBoard();
         initGameController();
+        initResetButton();
     }
 
     private void initAssets() {
@@ -44,10 +53,33 @@ public class GameplayScreen extends AbstractScreen {
         gc = new GameController(this, spriteBatch, assetsLoader);
     }
 
+    private void initResetButton() {
+        resetButtonStyle = new TextButtonStyle();
+        resetButtonStyle.font = new BitmapFont();
+        resetButton = new TextButton("Reset", resetButtonStyle);
+        resetButton.setWidth(BOARD_BUTTON_SIZE);
+        resetButton.setHeight(BOARD_BUTTON_SIZE);
+        resetButton.setX(10);
+        resetButton.setY(590);
+        resetButton.setDebug(true);
+
+        stage.addActor(resetButton);
+
+        resetButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (button == Input.Buttons.LEFT) {
+                    gc.resetGame();
+                }
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+    }
+
     // Init playing board
     private void initBoard() {
         for (int i=1; i<=BOARD_SIZE; i++) {
-            Button _tempbutton = new Button(new ButtonStyle());
+            final Button _tempbutton = new Button(new ButtonStyle());
             _tempbutton.setWidth(BOARD_BUTTON_SIZE);
             _tempbutton.setHeight(BOARD_BUTTON_SIZE);
             _tempbutton.setX(boardButtonX[i-1]);
@@ -61,7 +93,7 @@ public class GameplayScreen extends AbstractScreen {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     if (button == Input.Buttons.LEFT) {
-                        gc.makeMove(fieldID);
+                        gc.makeMove(fieldID, event);
                     }
                     return super.touchDown(event, x, y, pointer, button);
                 }
