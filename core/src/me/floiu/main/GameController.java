@@ -6,21 +6,23 @@ import me.floiu.main.screens.GameplayScreen;
 
 public class GameController {
 
-    private GameplayScreen screen;
     protected SpriteBatch spriteBatch;
+    private GameplayScreen screen;
+    private AssetsLoader assetsLoader;
 
     private Texture oImage;
     private Texture xImage;
 
-    public GameController(GameplayScreen screen, SpriteBatch spriteBatch) {
+    public GameController(GameplayScreen screen, SpriteBatch spriteBatch, AssetsLoader assetsLoader) {
         this.screen = screen;
         this.spriteBatch = spriteBatch;
+        this.assetsLoader = assetsLoader;
         init();
     }
 
     private void init() {
-        oImage = new Texture("o.png");
-        xImage = new Texture("x.png");
+        oImage = assetsLoader.manager.get("o.png", Texture.class);
+        xImage = assetsLoader.manager.get("x.png", Texture.class);
     }
 
     public void makeMove(int i) {

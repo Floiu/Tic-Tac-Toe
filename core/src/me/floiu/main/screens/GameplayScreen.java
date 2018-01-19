@@ -36,7 +36,7 @@ public class GameplayScreen extends AbstractScreen {
     }
 
     private void initGameController() {
-        gc = new GameController(this, spriteBatch);
+        gc = new GameController(this, spriteBatch, assetsLoader);
     }
 
     // Init playing board
