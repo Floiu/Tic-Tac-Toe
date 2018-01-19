@@ -14,6 +14,8 @@ public class GameplayScreen extends AbstractScreen {
 
     private GameController gc;
     private Texture boardImage;
+    private Texture oImage;
+    private Texture xImage;
     private AssetsLoader assetsLoader;
 
     private static int BOARD_SIZE = 9;
@@ -33,6 +35,8 @@ public class GameplayScreen extends AbstractScreen {
 
     private void initAssets() {
         boardImage = assetsLoader.manager.get("board.png", Texture.class);
+        oImage = assetsLoader.manager.get("o.png", Texture.class);
+        xImage = assetsLoader.manager.get("x.png", Texture.class);
     }
 
     private void initGameController() {
@@ -50,12 +54,12 @@ public class GameplayScreen extends AbstractScreen {
 
             stage.addActor(_tempbutton);
 
-            final String onClickMessage = "Pole numer " + i + " zostało naciśnięte";
+            final int fieldID = i;
 
             _tempbutton.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println(onClickMessage);
+                    gc.makeMove(fieldID);
                     return super.touchDown(event, x, y, pointer, button);
                 }
             });
@@ -76,6 +80,16 @@ public class GameplayScreen extends AbstractScreen {
         stage.act();
         spriteBatch.begin();
         spriteBatch.draw(boardImage, BOARD_IMAGE_X, BOARD_IMAGE_Y); // Draw board image - 4 lines
+        for (int i=1; i<=BOARD_SIZE; i++) {
+            char [] _tempBoardStatus = gc.getBoardStatus();
+            if (_tempBoardStatus[i-1] == 'x') {
+                spriteBatch.draw(xImage, boardButtonX[i-1], boardButtonY[i-1]);
+            } else  if (_tempBoardStatus[i-1] == 'o') {
+                spriteBatch.draw(oImage, boardButtonX[i-1], boardButtonY[i-1]);
+            } else {
+
+            }
+        }
         spriteBatch.end();
     }
 }
