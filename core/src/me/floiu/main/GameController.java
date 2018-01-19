@@ -1,24 +1,12 @@
 package me.floiu.main;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import me.floiu.main.screens.GameplayScreen;
 
 public class GameController {
-
-    protected SpriteBatch spriteBatch;
-    private GameplayScreen screen;
-    private AssetsLoader assetsLoader;
 
     private char[] boardStatus = {'#', '#', '#', '#', '#', '#', '#', '#', '#'};
 
     private char whoIsNow = 'x';
-
-    public GameController(GameplayScreen screen, SpriteBatch spriteBatch, AssetsLoader assetsLoader) {
-        this.screen = screen;
-        this.spriteBatch = spriteBatch;
-        this.assetsLoader = assetsLoader;
-    }
 
     public void makeMove(int i, InputEvent event) {
         if (boardStatus[i-1] != '#') {

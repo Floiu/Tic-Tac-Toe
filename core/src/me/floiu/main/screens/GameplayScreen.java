@@ -35,7 +35,7 @@ public class GameplayScreen extends AbstractScreen {
     public GameplayScreen(Main game, AssetsLoader assetsLoader) {
         super(game);
         this.assetsLoader = assetsLoader;
-        gc = new GameController(this, spriteBatch, assetsLoader);
+        gc = new GameController();
         initAssets();
         initBoard();
         initResetButton();
