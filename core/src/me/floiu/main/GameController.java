@@ -2,7 +2,6 @@ package me.floiu.main;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import me.floiu.main.screens.GameplayScreen;
 
 public class GameController {

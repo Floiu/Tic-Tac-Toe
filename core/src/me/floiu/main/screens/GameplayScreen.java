@@ -14,8 +14,6 @@ import me.floiu.main.AssetsLoader;
 import me.floiu.main.GameController;
 import me.floiu.main.Main;
 
-import javax.xml.soap.Text;
-
 public class GameplayScreen extends AbstractScreen {
 
     private GameController gc;
@@ -37,9 +35,9 @@ public class GameplayScreen extends AbstractScreen {
     public GameplayScreen(Main game, AssetsLoader assetsLoader) {
         super(game);
         this.assetsLoader = assetsLoader;
+        gc = new GameController(this, spriteBatch, assetsLoader);
         initAssets();
         initBoard();
-        initGameController();
         initResetButton();
     }
 
@@ -47,10 +45,6 @@ public class GameplayScreen extends AbstractScreen {
         boardImage = assetsLoader.manager.get("board.png", Texture.class);
         oImage = assetsLoader.manager.get("o.png", Texture.class);
         xImage = assetsLoader.manager.get("x.png", Texture.class);
-    }
-
-    private void initGameController() {
-        gc = new GameController(this, spriteBatch, assetsLoader);
     }
 
     private void initResetButton() {
