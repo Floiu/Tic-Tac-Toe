@@ -101,6 +101,16 @@ public class GameplayScreen extends AbstractScreen {
         }
     }
 
+    private void whoIsNow() {
+        spriteBatch.begin();
+        if (gc.getWhoIsNow() == 'x') {
+            spriteBatch.draw(xImage, 590, 590);
+        } else {
+            spriteBatch.draw(oImage, 590, 590);
+        }
+        spriteBatch.end();
+    }
+
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -126,5 +136,6 @@ public class GameplayScreen extends AbstractScreen {
             }
         }
         spriteBatch.end();
+        whoIsNow();
     }
 }
