@@ -63,7 +63,7 @@ public class GameplayScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (button == Input.Buttons.LEFT) {
-                    gc.clearBoard();
+                    gc.nextRound();
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -85,8 +85,10 @@ public class GameplayScreen extends AbstractScreen {
             _tempbutton.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    if (button == Input.Buttons.LEFT) {
-                        gc.makeMove(fieldID, event);
+                    if (gc.isSomeoneWin() == false) {
+                        if (button == Input.Buttons.LEFT) {
+                            gc.makeMove(fieldID, event);
+                        }
                     }
                     return super.touchDown(event, x, y, pointer, button);
                 }

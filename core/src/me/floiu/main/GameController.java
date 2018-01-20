@@ -9,6 +9,7 @@ public class GameController {
 
     private char whoIsNow = 'x';
     private float winBoardResetDelay = 0.75f;
+    private boolean someoneWin = false;
 
     public void makeMove(int i, InputEvent event) {
         if (boardStatus[i-1] != '#') {
@@ -32,17 +33,19 @@ public class GameController {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    clearBoard();
+                    nextRound();
                 }
             }, winBoardResetDelay);
+            someoneWin = true;
         }
     }
 
-    public void clearBoard() {
+    public void nextRound() {
         for (int i=1; i<=boardStatus.length; i++) {
             boardStatus[i-1] = '#';
         }
         whoIsNow = 'x';
+        someoneWin = false;
     }
 
     private void changePlayer() {
@@ -65,5 +68,9 @@ public class GameController {
 
     public char getWhoIsNow() {
         return whoIsNow;
+    }
+
+    public boolean isSomeoneWin() {
+        return someoneWin;
     }
 }
