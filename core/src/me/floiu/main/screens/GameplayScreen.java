@@ -17,13 +17,22 @@ import me.floiu.main.Main;
 public class GameplayScreen extends AbstractScreen {
 
     private GameController gc;
-    private Texture boardImage;
-    private Texture oImage;
-    private Texture xImage;
     private AssetsLoader assetsLoader;
 
     private TextButton resetButton;
     private TextButtonStyle resetButtonStyle;
+
+    private Texture boardImage;
+    private Texture oImage;
+    private Texture xImage;
+    private Texture po_d;
+    private Texture po_s;
+    private Texture po_g;
+    private Texture pi_l;
+    private Texture pi_s;
+    private Texture pi_p;
+    private Texture sk_l;
+    private Texture sk_p;
 
     private static int BOARD_SIZE = 9;
     private static int BOARD_BUTTON_SIZE = 100;
@@ -45,6 +54,14 @@ public class GameplayScreen extends AbstractScreen {
         boardImage = assetsLoader.manager.get("board.png", Texture.class);
         oImage = assetsLoader.manager.get("o.png", Texture.class);
         xImage = assetsLoader.manager.get("x.png", Texture.class);
+        po_d = assetsLoader.manager.get("po_d.png", Texture.class);
+        po_s = assetsLoader.manager.get("po_d.png", Texture.class);
+        po_g = assetsLoader.manager.get("po_d.png", Texture.class);
+        pi_l = assetsLoader.manager.get("po_d.png", Texture.class);
+        pi_s = assetsLoader.manager.get("po_d.png", Texture.class);
+        pi_p = assetsLoader.manager.get("po_d.png", Texture.class);
+        sk_l = assetsLoader.manager.get("po_d.png", Texture.class);
+        sk_p = assetsLoader.manager.get("po_d.png", Texture.class);
     }
 
     private void initResetButton() {

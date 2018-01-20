@@ -13,6 +13,14 @@ public class AssetsLoader implements Disposable{
         manager.load("x.png", Texture.class);
         manager.load("o.png", Texture.class);
         manager.load("board.png", Texture.class);
+        manager.load("po_d.png", Texture.class);
+        manager.load("po_s.png", Texture.class);
+        manager.load("po_g.png", Texture.class);
+        manager.load("pi_l.png", Texture.class);
+        manager.load("pi_s.png", Texture.class);
+        manager.load("pi_p.png", Texture.class);
+        manager.load("sk_l.png", Texture.class);
+        manager.load("sk_p.png", Texture.class);
     }
 
     @Override
