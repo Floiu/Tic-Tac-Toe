@@ -63,7 +63,7 @@ public class GameplayScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (button == Input.Buttons.LEFT) {
-                    gc.resetGame();
+                    gc.clearBoard();
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -78,7 +78,6 @@ public class GameplayScreen extends AbstractScreen {
             _tempbutton.setHeight(BOARD_BUTTON_SIZE);
             _tempbutton.setX(boardButtonX[i-1]);
             _tempbutton.setY(boardButtonY[i-1]);
-
             stage.addActor(_tempbutton);
 
             final int fieldID = i;
@@ -109,7 +108,6 @@ public class GameplayScreen extends AbstractScreen {
     public void render(float delta) {
         super.render(delta);
         update();
-
         spriteBatch.begin();
         stage.draw();
         spriteBatch.end();
@@ -125,8 +123,6 @@ public class GameplayScreen extends AbstractScreen {
                 spriteBatch.draw(xImage, boardButtonX[i-1], boardButtonY[i-1]);
             } else  if (_tempBoardStatus[i-1] == 'o') {
                 spriteBatch.draw(oImage, boardButtonX[i-1], boardButtonY[i-1]);
-            } else {
-
             }
         }
         spriteBatch.end();
