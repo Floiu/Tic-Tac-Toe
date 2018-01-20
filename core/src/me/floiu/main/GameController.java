@@ -17,8 +17,8 @@ public class GameController {
         } else {
             boardStatus[i-1] = whoIsNow;
             checkWin();
+            changePlayer();
         }
-        changePlayer();
     }
 
     private void checkWin() {
