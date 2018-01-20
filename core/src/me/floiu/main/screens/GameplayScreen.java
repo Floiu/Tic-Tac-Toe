@@ -55,13 +55,13 @@ public class GameplayScreen extends AbstractScreen {
         oImage = assetsLoader.manager.get("o.png", Texture.class);
         xImage = assetsLoader.manager.get("x.png", Texture.class);
         po_d = assetsLoader.manager.get("po_d.png", Texture.class);
-        po_s = assetsLoader.manager.get("po_d.png", Texture.class);
-        po_g = assetsLoader.manager.get("po_d.png", Texture.class);
-        pi_l = assetsLoader.manager.get("po_d.png", Texture.class);
-        pi_s = assetsLoader.manager.get("po_d.png", Texture.class);
-        pi_p = assetsLoader.manager.get("po_d.png", Texture.class);
-        sk_l = assetsLoader.manager.get("po_d.png", Texture.class);
-        sk_p = assetsLoader.manager.get("po_d.png", Texture.class);
+        po_s = assetsLoader.manager.get("po_s.png", Texture.class);
+        po_g = assetsLoader.manager.get("po_g.png", Texture.class);
+        pi_l = assetsLoader.manager.get("pi_l.png", Texture.class);
+        pi_s = assetsLoader.manager.get("pi_s.png", Texture.class);
+        pi_p = assetsLoader.manager.get("pi_p.png", Texture.class);
+        sk_l = assetsLoader.manager.get("sk_l.png", Texture.class);
+        sk_p = assetsLoader.manager.get("sk_p.png", Texture.class);
     }
 
     private void initResetButton() {
@@ -136,6 +136,36 @@ public class GameplayScreen extends AbstractScreen {
         stage.act();
         spriteBatch.begin();
         spriteBatch.draw(boardImage, BOARD_IMAGE_X, BOARD_IMAGE_Y); // Draw board image - 4 lines
+        spriteBatch.end();
+        drawMoves();
+        showWinPlace();
+        whoIsNow();
+    }
+
+    private void showWinPlace() {
+        spriteBatch.begin();
+        if (gc.getWhereWin() == '_') {
+            spriteBatch.draw(po_d, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        } else if (gc.getWhereWin() == '-') {
+            spriteBatch.draw(po_s, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        } else if (gc.getWhereWin() == '⁻') {
+            spriteBatch.draw(po_g, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        } else if (gc.getWhereWin() == '|') {
+            spriteBatch.draw(pi_l, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        } else if (gc.getWhereWin() == '!') {
+            spriteBatch.draw(pi_s, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        } else if (gc.getWhereWin() == ':') {
+            spriteBatch.draw(pi_p, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        } else if (gc.getWhereWin() == '/') {
+            spriteBatch.draw(sk_l, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        } else if (gc.getWhereWin() == '\\') {
+            spriteBatch.draw(sk_p, BOARD_IMAGE_X, BOARD_IMAGE_Y);
+        }
+        spriteBatch.end();
+    }
+
+    private void drawMoves() {
+        spriteBatch.begin();
         for (int i=1; i<=BOARD_SIZE; i++) {
             char [] _tempBoardStatus = gc.getBoardStatus();
             if (_tempBoardStatus[i-1] == 'x') {
@@ -145,6 +175,5 @@ public class GameplayScreen extends AbstractScreen {
             }
         }
         spriteBatch.end();
-        whoIsNow();
     }
 }
