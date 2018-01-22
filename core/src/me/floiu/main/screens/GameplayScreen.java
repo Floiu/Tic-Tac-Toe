@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -22,6 +24,9 @@ public class GameplayScreen extends AbstractScreen {
     private TextButton resetButton;
     private TextButtonStyle resetButtonStyle;
 
+    private Label scoreLabel;
+    private LabelStyle scoreLabelStyle;
+
     private Texture boardImage;
     private Texture oImage;
     private Texture xImage;
@@ -36,8 +41,13 @@ public class GameplayScreen extends AbstractScreen {
 
     private static int BOARD_SIZE = 9;
     private static int BOARD_BUTTON_SIZE = 100;
+
     private static int BOARD_IMAGE_X = 200;
     private static int BOARD_IMAGE_Y = 250;
+
+    private static int SCORE_LABEL_X = 330;
+    private static int SCORE_LABEL_Y = 650;
+
     private int[] boardButtonX = {200, 310, 420, 200, 310, 420, 200, 310, 420};
     private int[] boardButtonY = {250, 250, 250, 360, 360, 360, 470, 470, 470};
 
@@ -48,8 +58,21 @@ public class GameplayScreen extends AbstractScreen {
         initAssets();
         initBoard();
         initResetButton();
+        initPointsLabels();
     }
 
+    // Init scores label
+    private void initPointsLabels() {
+        scoreLabelStyle = new LabelStyle();
+        scoreLabelStyle.font = new BitmapFont();
+
+        scoreLabel = new Label("X: " + gc.getXScore() + " | O: " + gc.getOScore(), scoreLabelStyle);
+        scoreLabel.setX(SCORE_LABEL_X);
+        scoreLabel.setY(SCORE_LABEL_Y);
+        stage.addActor(scoreLabel);
+    }
+
+    // Init assets
     private void initAssets() {
         boardImage = assetsLoader.manager.get("board.png", Texture.class);
         oImage = assetsLoader.manager.get("o.png", Texture.class);
@@ -64,10 +87,11 @@ public class GameplayScreen extends AbstractScreen {
         sk_p = assetsLoader.manager.get("sk_p.png", Texture.class);
     }
 
+    // Init reset game button
     private void initResetButton() {
         resetButtonStyle = new TextButtonStyle();
         resetButtonStyle.font = new BitmapFont();
-        resetButton = new TextButton("Reset", resetButtonStyle);
+        resetButton = new TextButton("Restart game", resetButtonStyle);
         resetButton.setWidth(BOARD_BUTTON_SIZE);
         resetButton.setHeight(BOARD_BUTTON_SIZE);
         resetButton.setX(10);
@@ -80,7 +104,7 @@ public class GameplayScreen extends AbstractScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (button == Input.Buttons.LEFT) {
-                    gc.nextRound();
+                    gc.resetGame();
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -139,7 +163,12 @@ public class GameplayScreen extends AbstractScreen {
         spriteBatch.end();
         drawMoves();
         showWinPlace();
+        showPoints();
         whoIsNow();
+    }
+
+    private void showPoints() {
+        scoreLabel.setText("X: " + gc.getXScore() + " | O: " + gc.getOScore());
     }
 
     private void showWinPlace() {
