@@ -1,11 +1,8 @@
 package me.floiu.main.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
@@ -29,7 +26,6 @@ public class GameplayScreen extends AbstractScreen {
 
     private Label scoreLabel;
     private LabelStyle scoreLabelStyle;
-    private BitmapFont scoreLabelFont;
 
     private Texture boardImage;
     private Texture oImage;
@@ -51,7 +47,6 @@ public class GameplayScreen extends AbstractScreen {
 
     private static int SCORE_LABEL_X = 293;
     private static int SCORE_LABEL_Y = 630;
-    private static int SCORE_LABEL_FONT_SIZE = 24;
 
     private int[] boardButtonX = {200, 310, 420, 200, 310, 420, 200, 310, 420};
     private int[] boardButtonY = {250, 250, 250, 360, 360, 360, 470, 470, 470};
@@ -68,14 +63,8 @@ public class GameplayScreen extends AbstractScreen {
 
     // Init scores label
     private void initScoreLabels() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/REFSAN.ttf"));
-        FreeTypeFontParameter p = new FreeTypeFontParameter();
-        p.size = SCORE_LABEL_FONT_SIZE;
-        scoreLabelFont = generator.generateFont(p);
-        generator.dispose();
-
         scoreLabelStyle = new LabelStyle();
-        scoreLabelStyle.font = scoreLabelFont;
+        scoreLabelStyle.font = new BitmapFont();
 
         scoreLabel = new Label("X: " + gc.getXScore() + " | O: " + gc.getOScore(), scoreLabelStyle);
         scoreLabel.setX(SCORE_LABEL_X);
