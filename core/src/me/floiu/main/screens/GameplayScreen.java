@@ -45,7 +45,7 @@ public class GameplayScreen extends AbstractScreen {
     private static int BOARD_IMAGE_X = 200;
     private static int BOARD_IMAGE_Y = 250;
 
-    private static int SCORE_LABEL_X = 293;
+    private static int SCORE_LABEL_X = 325;
     private static int SCORE_LABEL_Y = 630;
 
     private int[] boardButtonX = {200, 310, 420, 200, 310, 420, 200, 310, 420};
