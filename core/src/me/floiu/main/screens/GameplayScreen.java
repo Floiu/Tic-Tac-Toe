@@ -3,15 +3,18 @@ package me.floiu.main.screens;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import me.floiu.main.AssetsLoader;
 import me.floiu.main.GameController;
 import me.floiu.main.Main;
@@ -21,7 +24,8 @@ public class GameplayScreen extends AbstractScreen {
     private GameController gc;
     private AssetsLoader assetsLoader;
 
-    private TextButton resetButton;
+    private ImageButton resetButton;
+
     private TextButton clearBoardButton;
     private TextButton clearOneFieldButton;
     private TextButtonStyle textButtonStyle;
@@ -29,6 +33,10 @@ public class GameplayScreen extends AbstractScreen {
     private Label scoreLabel;
     private LabelStyle scoreLabelStyle;
 
+    private TextureRegion restartButtonRegion;
+    private TextureRegionDrawable restartButtonDrawable;
+
+    private Texture restartButtonImage;
     private Texture boardImage;
     private Texture oImage;
     private Texture xImage;
@@ -66,6 +74,8 @@ public class GameplayScreen extends AbstractScreen {
 
     // Init super powers buttons
     private void initSuperPowersButtons() {
+        textButtonStyle = new TextButtonStyle();
+        textButtonStyle.font = new BitmapFont();
         clearBoardButton = new TextButton("Clear board", textButtonStyle);
         clearBoardButton.setWidth(BUTTON_SIZE);
         clearBoardButton.setHeight(BUTTON_SIZE);
@@ -82,7 +92,6 @@ public class GameplayScreen extends AbstractScreen {
 
         stage.addActor(clearBoardButton);
         stage.addActor(clearOneFieldButton);
-
     }
 
     // Init scores label
@@ -109,18 +118,18 @@ public class GameplayScreen extends AbstractScreen {
         pi_p = assetsLoader.manager.get("pi_p.png", Texture.class);
         sk_l = assetsLoader.manager.get("sk_l.png", Texture.class);
         sk_p = assetsLoader.manager.get("sk_p.png", Texture.class);
+        restartButtonImage = assetsLoader.manager.get("restartButton.png", Texture.class);
     }
 
     // Init reset game button
     private void initResetButton() {
-        textButtonStyle = new TextButtonStyle();
-        textButtonStyle.font = new BitmapFont();
-        resetButton = new TextButton("Restart game", textButtonStyle);
+        restartButtonRegion = new TextureRegion(restartButtonImage);
+        restartButtonDrawable = new TextureRegionDrawable(restartButtonRegion);
+        resetButton = new ImageButton(restartButtonDrawable);
         resetButton.setWidth(BUTTON_SIZE);
         resetButton.setHeight(BUTTON_SIZE);
         resetButton.setX(10);
         resetButton.setY(590);
-        resetButton.setDebug(true);
 
         stage.addActor(resetButton);
 
