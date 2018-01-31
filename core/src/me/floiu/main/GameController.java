@@ -28,7 +28,13 @@ public class GameController {
         }
     }
 
-    public void nextRound() {
+    public void resetGame() {
+        nextRound();
+        xScore = 0;
+        oScore = 0;
+    }
+
+    private void nextRound() {
         for (int i = 1; i <= boardStatus.length; i++) {
             boardStatus[i - 1] = '#';
         }
@@ -37,93 +43,62 @@ public class GameController {
         whereWin = '#';
     }
 
-    public void resetGame() {
-        nextRound();
-        xScore = 0;
-        oScore = 0;
+    private void nextRoundWithDelay(float delay) {
+        Timer.schedule(new Task() {
+            @Override
+            public void run() {
+                nextRound();
+            }
+        }, delay);
     }
 
     private void checkWin() {
         if ((boardStatus[0] == whoIsNow) && (boardStatus[1] == whoIsNow) && (boardStatus[2] == whoIsNow)) {
             whereWin = '_';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
         } else if ((boardStatus[3] == whoIsNow) && (boardStatus[4] == whoIsNow) && (boardStatus[5] == whoIsNow)) {
             whereWin = '-';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
         } else if ((boardStatus[6] == whoIsNow) && (boardStatus[7] == whoIsNow) && (boardStatus[8] == whoIsNow)) {
             whereWin = '⁻';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
         } else if ((boardStatus[0] == whoIsNow) && (boardStatus[3] == whoIsNow) && (boardStatus[6] == whoIsNow)) {
             whereWin = '|';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
         } else if ((boardStatus[1] == whoIsNow) && (boardStatus[4] == whoIsNow) && (boardStatus[7] == whoIsNow)) {
             whereWin = '!';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
         } else if ((boardStatus[2] == whoIsNow) && (boardStatus[5] == whoIsNow) && (boardStatus[8] == whoIsNow)) {
             whereWin = ':';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
         } else if ((boardStatus[0] == whoIsNow) && (boardStatus[4] == whoIsNow) && (boardStatus[8] == whoIsNow)) {
             whereWin = '/';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
         } else if ((boardStatus[2] == whoIsNow) && (boardStatus[4] == whoIsNow) && (boardStatus[6] == whoIsNow)) {
             whereWin = '\\';
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
+            nextRoundWithDelay(boardResetDelay);
             someoneWin = true;
             addScore(whoIsNow);
+        }
+    }
+
+    private void checkDraw() {
+        if ((boardStatus[0] != '#' && boardStatus[1] != '#' && boardStatus[2] != '#' && boardStatus[3] != '#' && boardStatus[4] != '#' && boardStatus[5] != '#' && boardStatus[6] != '#' && boardStatus[7] != '#' && boardStatus[8] != '#') && someoneWin == false) {
+            nextRoundWithDelay(boardResetDelay);
         }
     }
 
@@ -140,17 +115,6 @@ public class GameController {
             whoIsNow = 'o';
         } else {
             whoIsNow = 'x';
-        }
-    }
-
-    private void checkDraw() {
-        if ((boardStatus[0] != '#' && boardStatus[1] != '#' && boardStatus[2] != '#' && boardStatus[3] != '#' && boardStatus[4] != '#' && boardStatus[5] != '#' && boardStatus[6] != '#' && boardStatus[7] != '#' && boardStatus[8] != '#') && someoneWin == false) {
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    nextRound();
-                }
-            }, boardResetDelay);
         }
     }
 
