@@ -22,8 +22,7 @@ public class AssetsLoader implements Disposable{
         manager.load("sk_l.png", Texture.class);
         manager.load("sk_p.png", Texture.class);
         manager.load("restartButton.png", Texture.class);
-        manager.load("onefield_on.png", Texture.class);
-        manager.load("onefield_off.png", Texture.class);
+        manager.load("onefield.png", Texture.class);
     }
 
     @Override

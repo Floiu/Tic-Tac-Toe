@@ -34,14 +34,12 @@ public class GameplayScreen extends AbstractScreen {
     private LabelStyle scoreLabelStyle;
 
     private TextureRegion restartButtonRegion;
-    private TextureRegion clearOneFieldButtonRegion_on;
-    private TextureRegion clearOneFieldButtonRegion_off;
+    private TextureRegion clearOneFieldButtonRegion;
 
     private TextureRegionDrawable restartButtonDrawable;
     private TextureRegionDrawable clearOneFieldButtonDrawable;
 
-    private Texture clearOneFieldButtonImage_on;
-    private Texture clearOneFieldButtonImage_off;
+    private Texture clearOneFieldButtonImage;
     private Texture restartButtonImage;
     private Texture boardImage;
     private Texture oImage;
@@ -80,9 +78,8 @@ public class GameplayScreen extends AbstractScreen {
 
     // Init super powers buttons
     private void initSuperPowersButtons() {
-        clearOneFieldButtonRegion_on = new TextureRegion(clearOneFieldButtonImage_on);
-        clearOneFieldButtonDrawable = new TextureRegionDrawable(clearOneFieldButtonRegion_on);
-
+        clearOneFieldButtonRegion = new TextureRegion(clearOneFieldButtonImage);
+        clearOneFieldButtonDrawable = new TextureRegionDrawable(clearOneFieldButtonRegion);
 
         textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
@@ -98,6 +95,16 @@ public class GameplayScreen extends AbstractScreen {
         clearOneFieldButton.setHeight(BUTTON_SIZE);
         clearOneFieldButton.setX(420);
         clearOneFieldButton.setY(50);
+
+        clearOneFieldButton.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (gc.getOF(gc.getWhoIsNow()) != gc.getWhoIsNow()) {
+                    gc.setWhatToDo('f');
+                }
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
 
         stage.addActor(clearBoardButton);
         stage.addActor(clearOneFieldButton);
@@ -128,8 +135,7 @@ public class GameplayScreen extends AbstractScreen {
         sk_l = assetsLoader.manager.get("sk_l.png", Texture.class);
         sk_p = assetsLoader.manager.get("sk_p.png", Texture.class);
         restartButtonImage = assetsLoader.manager.get("restartButton.png", Texture.class);
-        clearOneFieldButtonImage_on = assetsLoader.manager.get("onefield_on.png", Texture.class);
-        clearOneFieldButtonImage_off = assetsLoader.manager.get("onefield_off.png", Texture.class);
+        clearOneFieldButtonImage = assetsLoader.manager.get("onefield.png", Texture.class);
     }
 
     // Init reset game button
@@ -172,7 +178,11 @@ public class GameplayScreen extends AbstractScreen {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     if (gc.isSomeoneWin() == false) {
                         if (button == Input.Buttons.LEFT) {
-                            gc.makeMove(fieldID, event);
+                            if (gc.getWhatToDo() == 'p') {
+                                gc.makeMove(fieldID, event);
+                            } else if (gc.getWhatToDo() == 'f') {
+                                gc.oneFieldClear(fieldID, event);
+                            }
                         }
                     }
                     return super.touchDown(event, x, y, pointer, button);

@@ -10,6 +10,10 @@ public class GameController {
 
     private char whoIsNow = 'x';
 
+    private char whatToDo = 'p';
+    private char ofX = '#';
+    private char ofY = '#';
+
     private float boardResetDelay = 0.75f;
     private char whereWin;
     private boolean someoneWin = false;
@@ -32,6 +36,22 @@ public class GameController {
         nextRound();
         xScore = 0;
         oScore = 0;
+        ofX = '#';
+        ofY = '#';
+    }
+
+    public void oneFieldClear(int i, InputEvent event) {
+        if (boardStatus[i - 1] == '#' || boardStatus[i - 1] == whoIsNow) {
+            event.cancel();
+        } else {
+            if (whoIsNow == 'x') {
+                ofX = 'x';
+            } else {
+                ofY = 'o';
+            }
+            boardStatus[i - 1] = '#';
+            whatToDo = 'p';
+        }
     }
 
     private void nextRound() {
@@ -41,6 +61,7 @@ public class GameController {
         whoIsNow = 'x';
         someoneWin = false;
         whereWin = '#';
+        whatToDo = 'p';
     }
 
     private void nextRoundWithDelay(float delay) {
@@ -124,6 +145,14 @@ public class GameController {
      * ---------------------
      */
 
+    public char getOF(char forWho) {
+        if (forWho == 'x') {
+            return ofX;
+        } else {
+            return ofY;
+        }
+    }
+
     public char[] getBoardStatus() {
         return boardStatus;
     }
@@ -146,5 +175,13 @@ public class GameController {
 
     public int getOScore() {
         return oScore;
+    }
+
+    public char getWhatToDo() {
+        return whatToDo;
+    }
+
+    public void setWhatToDo(char whatToDo) {
+        this.whatToDo = whatToDo;
     }
 }
