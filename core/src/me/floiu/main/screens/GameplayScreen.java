@@ -22,7 +22,9 @@ public class GameplayScreen extends AbstractScreen {
     private AssetsLoader assetsLoader;
 
     private TextButton resetButton;
-    private TextButtonStyle resetButtonStyle;
+    private TextButton clearBoardButton;
+    private TextButton clearOneFieldButton;
+    private TextButtonStyle textButtonStyle;
 
     private Label scoreLabel;
     private LabelStyle scoreLabelStyle;
@@ -40,7 +42,7 @@ public class GameplayScreen extends AbstractScreen {
     private Texture sk_p;
 
     private static int BOARD_SIZE = 9;
-    private static int BOARD_BUTTON_SIZE = 100;
+    private static int BUTTON_SIZE = 100;
 
     private static int BOARD_IMAGE_X = 200;
     private static int BOARD_IMAGE_Y = 250;
@@ -59,6 +61,28 @@ public class GameplayScreen extends AbstractScreen {
         initBoard();
         initResetButton();
         initScoreLabels();
+        initSuperPowersButtons();
+    }
+
+    // Init super powers buttons
+    private void initSuperPowersButtons() {
+        clearBoardButton = new TextButton("Clear board", textButtonStyle);
+        clearBoardButton.setWidth(BUTTON_SIZE);
+        clearBoardButton.setHeight(BUTTON_SIZE);
+        clearBoardButton.setX(200);
+        clearBoardButton.setY(50);
+        clearBoardButton.setDebug(true);
+
+        clearOneFieldButton = new TextButton("Clear one field", textButtonStyle);
+        clearOneFieldButton.setWidth(BUTTON_SIZE);
+        clearOneFieldButton.setHeight(BUTTON_SIZE);
+        clearOneFieldButton.setX(420);
+        clearOneFieldButton.setY(50);
+        clearOneFieldButton.setDebug(true);
+
+        stage.addActor(clearBoardButton);
+        stage.addActor(clearOneFieldButton);
+
     }
 
     // Init scores label
@@ -89,11 +113,11 @@ public class GameplayScreen extends AbstractScreen {
 
     // Init reset game button
     private void initResetButton() {
-        resetButtonStyle = new TextButtonStyle();
-        resetButtonStyle.font = new BitmapFont();
-        resetButton = new TextButton("Restart game", resetButtonStyle);
-        resetButton.setWidth(BOARD_BUTTON_SIZE);
-        resetButton.setHeight(BOARD_BUTTON_SIZE);
+        textButtonStyle = new TextButtonStyle();
+        textButtonStyle.font = new BitmapFont();
+        resetButton = new TextButton("Restart game", textButtonStyle);
+        resetButton.setWidth(BUTTON_SIZE);
+        resetButton.setHeight(BUTTON_SIZE);
         resetButton.setX(10);
         resetButton.setY(590);
         resetButton.setDebug(true);
@@ -115,8 +139,8 @@ public class GameplayScreen extends AbstractScreen {
     private void initBoard() {
         for (int i=1; i<=BOARD_SIZE; i++) {
             final Button _tempbutton = new Button(new ButtonStyle());
-            _tempbutton.setWidth(BOARD_BUTTON_SIZE);
-            _tempbutton.setHeight(BOARD_BUTTON_SIZE);
+            _tempbutton.setWidth(BUTTON_SIZE);
+            _tempbutton.setHeight(BUTTON_SIZE);
             _tempbutton.setX(boardButtonX[i-1]);
             _tempbutton.setY(boardButtonY[i-1]);
             stage.addActor(_tempbutton);
@@ -137,16 +161,6 @@ public class GameplayScreen extends AbstractScreen {
         }
     }
 
-    private void whoIsNow() {
-        spriteBatch.begin();
-        if (gc.getWhoIsNow() == 'x') {
-            spriteBatch.draw(xImage, 590, 590);
-        } else {
-            spriteBatch.draw(oImage, 590, 590);
-        }
-        spriteBatch.end();
-    }
-
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -165,6 +179,16 @@ public class GameplayScreen extends AbstractScreen {
         showWinPlace();
         showPoints();
         whoIsNow();
+    }
+
+    private void whoIsNow() {
+        spriteBatch.begin();
+        if (gc.getWhoIsNow() == 'x') {
+            spriteBatch.draw(xImage, 590, 590);
+        } else {
+            spriteBatch.draw(oImage, 590, 590);
+        }
+        spriteBatch.end();
     }
 
     private void showPoints() {
