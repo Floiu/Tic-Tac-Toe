@@ -25,17 +25,23 @@ public class GameplayScreen extends AbstractScreen {
     private AssetsLoader assetsLoader;
 
     private ImageButton resetButton;
+    private ImageButton clearOneFieldButton;
 
     private TextButton clearBoardButton;
-    private TextButton clearOneFieldButton;
     private TextButtonStyle textButtonStyle;
 
     private Label scoreLabel;
     private LabelStyle scoreLabelStyle;
 
     private TextureRegion restartButtonRegion;
-    private TextureRegionDrawable restartButtonDrawable;
+    private TextureRegion clearOneFieldButtonRegion_on;
+    private TextureRegion clearOneFieldButtonRegion_off;
 
+    private TextureRegionDrawable restartButtonDrawable;
+    private TextureRegionDrawable clearOneFieldButtonDrawable;
+
+    private Texture clearOneFieldButtonImage_on;
+    private Texture clearOneFieldButtonImage_off;
     private Texture restartButtonImage;
     private Texture boardImage;
     private Texture oImage;
@@ -74,6 +80,10 @@ public class GameplayScreen extends AbstractScreen {
 
     // Init super powers buttons
     private void initSuperPowersButtons() {
+        clearOneFieldButtonRegion_on = new TextureRegion(clearOneFieldButtonImage_on);
+        clearOneFieldButtonDrawable = new TextureRegionDrawable(clearOneFieldButtonRegion_on);
+
+
         textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         clearBoardButton = new TextButton("Clear board", textButtonStyle);
@@ -83,12 +93,11 @@ public class GameplayScreen extends AbstractScreen {
         clearBoardButton.setY(50);
         clearBoardButton.setDebug(true);
 
-        clearOneFieldButton = new TextButton("Clear one field", textButtonStyle);
+        clearOneFieldButton = new ImageButton(clearOneFieldButtonDrawable);
         clearOneFieldButton.setWidth(BUTTON_SIZE);
         clearOneFieldButton.setHeight(BUTTON_SIZE);
         clearOneFieldButton.setX(420);
         clearOneFieldButton.setY(50);
-        clearOneFieldButton.setDebug(true);
 
         stage.addActor(clearBoardButton);
         stage.addActor(clearOneFieldButton);
@@ -119,6 +128,8 @@ public class GameplayScreen extends AbstractScreen {
         sk_l = assetsLoader.manager.get("sk_l.png", Texture.class);
         sk_p = assetsLoader.manager.get("sk_p.png", Texture.class);
         restartButtonImage = assetsLoader.manager.get("restartButton.png", Texture.class);
+        clearOneFieldButtonImage_on = assetsLoader.manager.get("onefield_on.png", Texture.class);
+        clearOneFieldButtonImage_off = assetsLoader.manager.get("onefield_off.png", Texture.class);
     }
 
     // Init reset game button
