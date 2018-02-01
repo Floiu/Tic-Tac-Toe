@@ -27,9 +27,6 @@ public class GameplayScreen extends AbstractScreen {
     private ImageButton resetButton;
     private ImageButton clearOneFieldButton;
 
-    private TextButton clearBoardButton;
-    private TextButtonStyle textButtonStyle;
-
     private Label scoreLabel;
     private LabelStyle scoreLabelStyle;
 
@@ -81,19 +78,10 @@ public class GameplayScreen extends AbstractScreen {
         clearOneFieldButtonRegion = new TextureRegion(clearOneFieldButtonImage);
         clearOneFieldButtonDrawable = new TextureRegionDrawable(clearOneFieldButtonRegion);
 
-        textButtonStyle = new TextButtonStyle();
-        textButtonStyle.font = new BitmapFont();
-        clearBoardButton = new TextButton("Clear board", textButtonStyle);
-        clearBoardButton.setWidth(BUTTON_SIZE);
-        clearBoardButton.setHeight(BUTTON_SIZE);
-        clearBoardButton.setX(200);
-        clearBoardButton.setY(50);
-        clearBoardButton.setDebug(true);
-
         clearOneFieldButton = new ImageButton(clearOneFieldButtonDrawable);
         clearOneFieldButton.setWidth(BUTTON_SIZE);
         clearOneFieldButton.setHeight(BUTTON_SIZE);
-        clearOneFieldButton.setX(420);
+        clearOneFieldButton.setX(310);
         clearOneFieldButton.setY(50);
 
         clearOneFieldButton.addListener(new ClickListener(){
@@ -110,7 +98,6 @@ public class GameplayScreen extends AbstractScreen {
             }
         });
 
-        stage.addActor(clearBoardButton);
         stage.addActor(clearOneFieldButton);
     }
 
@@ -188,6 +175,8 @@ public class GameplayScreen extends AbstractScreen {
                             } else if (gc.getWhatToDo() == 'f') {
                                 gc.oneFieldClear(fieldID, event);
                                 clearOneFieldButton.setDebug(false);
+                                clearOneFieldButton.setDisabled(true);
+                                gc.setWhatToDo('p');
                             }
                         }
                     }
