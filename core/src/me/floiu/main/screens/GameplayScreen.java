@@ -99,8 +99,12 @@ public class GameplayScreen extends AbstractScreen {
         clearOneFieldButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (gc.getOF(gc.getWhoIsNow()) != gc.getWhoIsNow()) {
+                if ((gc.getOF(gc.getWhoIsNow()) != gc.getWhoIsNow()) && gc.getWhatToDo() == 'p') {
                     gc.setWhatToDo('f');
+                    clearOneFieldButton.setDebug(true);
+                } else {
+                    gc.setWhatToDo('p');
+                    clearOneFieldButton.setDebug(false);
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -155,6 +159,7 @@ public class GameplayScreen extends AbstractScreen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (button == Input.Buttons.LEFT) {
                     gc.resetGame();
+                    clearOneFieldButton.setDebug(false);
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -182,6 +187,7 @@ public class GameplayScreen extends AbstractScreen {
                                 gc.makeMove(fieldID, event);
                             } else if (gc.getWhatToDo() == 'f') {
                                 gc.oneFieldClear(fieldID, event);
+                                clearOneFieldButton.setDebug(false);
                             }
                         }
                     }
