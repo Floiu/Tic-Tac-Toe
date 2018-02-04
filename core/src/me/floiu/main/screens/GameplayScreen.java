@@ -10,8 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -25,18 +23,18 @@ public class GameplayScreen extends AbstractScreen {
     private AssetsLoader assetsLoader;
 
     private ImageButton resetButton;
-    private ImageButton clearOneFieldButton;
+    private Button clearOneFieldButton;
+    private ButtonStyle clearOneFieldButtonStyle;
 
     private Label scoreLabel;
     private LabelStyle scoreLabelStyle;
 
     private TextureRegion restartButtonRegion;
-    private TextureRegion clearOneFieldButtonRegion;
 
     private TextureRegionDrawable restartButtonDrawable;
-    private TextureRegionDrawable clearOneFieldButtonDrawable;
 
-    private Texture clearOneFieldButtonImage;
+    private Texture clearOneFieldButtonImage_on;
+    private Texture clearOneFieldButtonImage_off;
     private Texture restartButtonImage;
     private Texture boardImage;
     private Texture oImage;
@@ -75,10 +73,8 @@ public class GameplayScreen extends AbstractScreen {
 
     // Init super powers buttons
     private void initSuperPowersButtons() {
-        clearOneFieldButtonRegion = new TextureRegion(clearOneFieldButtonImage);
-        clearOneFieldButtonDrawable = new TextureRegionDrawable(clearOneFieldButtonRegion);
-
-        clearOneFieldButton = new ImageButton(clearOneFieldButtonDrawable);
+        clearOneFieldButtonStyle = new ButtonStyle();
+        clearOneFieldButton = new Button(clearOneFieldButtonStyle);
         clearOneFieldButton.setWidth(BUTTON_SIZE);
         clearOneFieldButton.setHeight(BUTTON_SIZE);
         clearOneFieldButton.setX(310);
@@ -126,7 +122,8 @@ public class GameplayScreen extends AbstractScreen {
         sk_l = assetsLoader.manager.get("sk_l.png", Texture.class);
         sk_p = assetsLoader.manager.get("sk_p.png", Texture.class);
         restartButtonImage = assetsLoader.manager.get("restartButton.png", Texture.class);
-        clearOneFieldButtonImage = assetsLoader.manager.get("onefield.png", Texture.class);
+        clearOneFieldButtonImage_on = assetsLoader.manager.get("onefield.png", Texture.class);
+        clearOneFieldButtonImage_off = assetsLoader.manager.get("onefield_off.png", Texture.class);
     }
 
     // Init reset game button
@@ -203,7 +200,18 @@ public class GameplayScreen extends AbstractScreen {
         drawMoves();
         showWinPlace();
         showPoints();
+        showSuperPowerButton();
         whoIsNow();
+    }
+
+    private void showSuperPowerButton() {
+        spriteBatch.begin();
+        if (gc.getOF(gc.getWhoIsNow()) == gc.getWhoIsNow()) {
+            spriteBatch.draw(clearOneFieldButtonImage_off, 310, 50);
+        } else {
+            spriteBatch.draw(clearOneFieldButtonImage_on, 310, 50);
+        }
+        spriteBatch.end();
     }
 
     private void whoIsNow() {
